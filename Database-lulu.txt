@@ -1,0 +1,167 @@
+
+Setting environment for using XAMPP for Windows.
+Luthfiyah Syaharani@LUTHFYSY c:\xampp
+# cd \
+
+Luthfiyah Syaharani@LUTHFYSY c:\
+# cd \xampp\mysql\bin
+
+Luthfiyah Syaharani@LUTHFYSY c:\xampp\mysql\bin
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| dbti08             |
+| dbtoko             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+7 rows in set (0.035 sec)
+
+MariaDB [(none)]> CREATE DATABASE dbkuliah;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> USE dbkuliah;
+Database changed
+
+MariaDB [dbkuliah]> CREATE TABLE jurusan(
+    -> id int primary key auto_increment not null,
+    -> nama varchar(50) not null unique);
+Query OK, 0 rows affected (0.032 sec)
+
+MariaDB [dbkuliah]> DESC jurusan;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(50) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.015 sec)
+
+MariaDB [dbkuliah]> CREATE TABLE mahasiswa(
+    -> id int primary key auto_increment not null,
+    -> nim int not null unique,
+    -> nama varchar(30) not null,
+    -> alamat varchar(100) not null,
+    -> idjurusan int not null references jurusan(id),
+    -> foto varchar(30));
+Query OK, 0 rows affected (0.028 sec)
+
+MariaDB [dbkuliah]> DESC jurusan;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(50) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.019 sec)
+
+MariaDB [dbkuliah]> DESC mahasiswa;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra
+ |
++-----------+--------------+------+-----+---------+----------------+
+| id        | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nim       | int(11)      | NO   | UNI | NULL    |
+ |
+| nama      | varchar(30)  | NO   |     | NULL    |
+ |
+| alamat    | varchar(100) | NO   |     | NULL    |
+ |
+| idjurusan | int(11)      | NO   |     | NULL    |
+ |
+| foto      | varchar(30)  | YES  |     | NULL    |
+ |
++-----------+--------------+------+-----+---------+----------------+
+6 rows in set (0.022 sec)
+
+MariaDB [dbkuliah]> SELECT * FROM jurusan;
+Empty set (0.001 sec)
+
+MariaDB [dbkuliah]> DESC jurusan;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(50) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.020 sec)
+
+MariaDB [dbkuliah]> INSERT INTO jurusan (nama) VALUES
+    -> ('Teknik Informatika'),('Sistem Informasi'),('Bisnis Digital'),('Teknik Mesin'),('Teknik Elektro');
+Query OK, 5 rows affected (0.007 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [dbkuliah]> DESC jurusan;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| nama  | varchar(50) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.022 sec)
+
+MariaDB [dbkuliah]> SELECT * FROM jurusan;
++----+--------------------+
+| id | nama               |
++----+--------------------+
+|  3 | Bisnis Digital     |
+|  2 | Sistem Informasi   |
+|  5 | Teknik Elektro     |
+|  1 | Teknik Informatika |
+|  4 | Teknik Mesin       |
++----+--------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [dbkuliah]> DESC mahasiswa;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| id        | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nim       | int(11)      | NO   | UNI | NULL    |                |
+| nama      | varchar(30)  | NO   |     | NULL    |                |
+| alamat    | varchar(100) | NO   |     | NULL    |                |
+| idjurusan | int(11)      | NO   |     | NULL    |                |
+| foto      | varchar(30)  | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+6 rows in set (0.027 sec)
+
+MariaDB [dbkuliah]> INSERT INTO mahasiswa (nim,nama,alamat,idjurusan,foto) VALUES
+    -> (0110223238,'Luthfiyah Syaharani','Kp Sugutamu',1,'lulu.jpg'),
+    -> (0110223249,'Miko Danuarta Nduru','Jl Rtm',1,'miko.jpg'),
+    -> (0110223240,'Muhammad Afif Naufal','Ar Ridho',2,'afif.jpg'),
+    -> (0110223252,'Feri Ardiansyah','Jl Kelapa Dua',3,'feri.jpg'),
+    -> (0110223257,'Niputu Aulia Wulandari','Perum. Bukit Cengkeh',5,'putu.jpg');
+Query OK, 5 rows affected (0.010 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [dbkuliah]> SELECT * FROM mahasiswa;
++----+-----------+------------------------+----------------------+-----------+----------+
+| id | nim       | nama                   | alamat               | idjurusan | foto     |
++----+-----------+------------------------+----------------------+-----------+----------+
+|  1 | 110223238 | Luthfiyah Syaharani    | Kp Sugutamu          |         1 | lulu.jpg |
+|  2 | 110223249 | Miko Danuarta Nduru    | Jl Rtm               |         1 | miko.jpg |
+|  3 | 110223240 | Muhammad Afif Naufal   | Ar Ridho             |         2 | afif.jpg |
+|  4 | 110223252 | Feri Ardiansyah        | Jl Kelapa Dua        |         3 | feri.jpg |
+|  5 | 110223257 | Niputu Aulia Wulandari | Perum. Bukit Cengkeh |         5 | putu.jpg |
++----+-----------+------------------------+----------------------+-----------+----------+
+5 rows in set (0.001 sec)
+
+MariaDB [dbkuliah]> \q
+Bye
+
+Luthfiyah Syaharani@LUTHFYSY c:\xampp\mysql\bin
+#
